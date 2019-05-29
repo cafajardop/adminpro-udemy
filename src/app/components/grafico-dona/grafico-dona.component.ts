@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Label, MultiDataSet } from 'ng2-charts';
 
 @Component({
   selector: 'app-grafico-dona',
