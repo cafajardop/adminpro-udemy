@@ -19,6 +19,8 @@ import { ServiceModule } from './services/service.module';
 
 //Temporal
 import { FormsModule } from '@angular/forms';
+import { PromesasComponent } from './pages/promesas/promesas.component';
+import { RxjsComponent } from './pages/rxjs/rxjs.component';
 
 
 
@@ -27,7 +29,9 @@ import { FormsModule } from '@angular/forms';
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    PromesasComponent,
+    RxjsComponent
   ],
   imports: [
     BrowserModule,
