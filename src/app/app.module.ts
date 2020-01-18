@@ -18,7 +18,7 @@ import { ServiceModule } from './services/service.module';
 
 
 //Temporal
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PromesasComponent } from './pages/promesas/promesas.component';
 import { RxjsComponent } from './pages/rxjs/rxjs.component';
 
@@ -38,6 +38,7 @@ import { RxjsComponent } from './pages/rxjs/rxjs.component';
     APP_ROUTES,
     PagesModule,
     FormsModule,
+    ReactiveFormsModule,
     ServiceModule
   ],
   providers: [],
