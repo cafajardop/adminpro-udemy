@@ -117,7 +117,29 @@ export class UsuarioService {
         this.guardarStorage(id, this.token, this.usuario);
       })
       .catch(resp => {
-        console.log(resp); 
+        console.log(resp);
       });
+  }
+  cargarUsuarios(desde: number = 0) {
+    let url = URL_SERVICIOS + '/usuario?desde=' + desde;
+    return this.http.get(url);
+  }
+  buscarUsuarios(termino: string) {
+    let url = URL_SERVICIOS + '/busqueda/todo/' + termino;
+    return this.http.get(url)
+      .pipe(
+        map((resp: any) => resp.usuarios));
+  }
+
+  borrarUsuario(id: string) {
+    let url = URL_SERVICIOS + '/usuario/' + id;
+    url += '?token=' + this.token;
+    
+    return this.http.delete(url)
+      .pipe(
+        map(resp => {
+          swal('Usuario borrado', 'El usuario a sido eliminado correctamente', 'success'); 
+          return true;
+        }));
   }
 }
