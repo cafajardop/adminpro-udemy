@@ -50,10 +50,10 @@ export class RegisterComponent implements OnInit {
     }, { validators: this.sonIguales('password','password2') });
 
     this.forma.setValue({
-      nombre:'calitos vos sos un putas omee',
-      email: 'calichitoelputas@test30.com',
-      password: '123456',
-      password2: '123456',
+      nombre:'Carlos',
+      email: 'carlosafp@gmail.com',
+      password: '123',
+      password2: '123',
       condiciones: true
     });
   }
