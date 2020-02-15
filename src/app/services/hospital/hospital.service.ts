@@ -24,6 +24,7 @@ export class HospitalService {
       .pipe(
         map((resp: any) => {
           this.totalHospitales = resp.total;
+          console.log(this.totalHospitales);
           return resp.hospitales;
         }));
   }
