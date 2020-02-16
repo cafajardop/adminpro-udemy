@@ -64,14 +64,14 @@ export class MedicoService {
     if (medico._id) {
       //actualizando
       url += '/' + medico._id;
-      url += '?token=' + this._usuarioService.token; 
+      url += '?token=' + this._usuarioService.token;
       return this.http.put(url, medico)
-      .pipe(
-          map( (resp:any) =>{
-            swal('Médico Actualizado', medico.nombre, 'success');      
+        .pipe(
+          map((resp: any) => {
+            swal('Médico Actualizado', medico.nombre, 'success');
             return resp.medico;
           })
-      );
+        );
     } else {
       //Creando
       url += '?token=' + this._usuarioService.token;
