@@ -25,6 +25,26 @@ export class UsuarioService {
     this.cargarStorage();
   }
 
+  renuevaToken() {
+    let url = URL_SERVICIOS + '/login/renuevatoken';
+    url += '?token=' + this.token;
+
+    return this.http.get(url)
+      .pipe(
+        map((resp: any) => {
+          this.token = resp.token;
+          localStorage.setItem('token', this.token);
+
+          return true;
+        }),
+        catchError(err => {
+          this.router.navigate(['/login']);
+          swal('No se pudo renovar token', 'No fue posible renovar token', 'error')
+          return Observable.throw(err );
+        })
+      );
+  }
+
   estaLogueado() {
     return (this.token.length > 5) ? true : false;
   }
@@ -41,7 +61,7 @@ export class UsuarioService {
       this.menu = [];
     }
   }
-  guardarStorage(id: string, token: string, usuario: Usuario, menu:any) {
+  guardarStorage(id: string, token: string, usuario: Usuario, menu: any) {
 
     localStorage.setItem('id', id);
     localStorage.setItem('token', token);
@@ -50,13 +70,13 @@ export class UsuarioService {
 
     this.usuario = usuario;
     this.token = token;
-    this.menu = menu; 
+    this.menu = menu;
   }
 
   logout() {
     this.usuario = null;
     this.token = '';
-    this.menu =[];
+    this.menu = [];
 
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
@@ -89,12 +109,12 @@ export class UsuarioService {
           this.guardarStorage(resp.id, resp.token, resp.usuario, resp.menu);
           return true;
         }),
-        catchError(err =>{
-            console.log(err.error.mensaje);
-            swal('Error en el login',err.error.mensaje,'error')
+        catchError(err => {
+          console.log(err.error.mensaje);
+          swal('Error en el login', err.error.mensaje, 'error')
           return Observable.throw(err.status);
         })
-        );
+      );
 
   }
   crearUsuario(usuario: Usuario) {
@@ -107,12 +127,12 @@ export class UsuarioService {
           swal('Usuario creado', usuario.email, 'success')
           return resp.usuario;
         }),
-        catchError(err =>{
-            console.log(err);
-            swal(err.error.mensaje,err.error.errors.message,'error')
+        catchError(err => {
+          console.log(err);
+          swal(err.error.mensaje, err.error.errors.message, 'error')
           return Observable.throw(err.status);
         })
-        );
+      );
   }
 
   actualizarUsuario(usuario: Usuario) {
@@ -123,19 +143,19 @@ export class UsuarioService {
     return this.http.put(url, usuario)
       .pipe(
         map((resp: any) => {
-          if(usuario._id === this.usuario._id){
+          if (usuario._id === this.usuario._id) {
             let usuarioDB: Usuario = resp.usuario;
             this.guardarStorage(usuarioDB._id, this.token, usuarioDB, this.menu);
           }
           swal('Usuario actualizado', usuario.nombre, 'success');
           return true;
         }),
-        catchError(err =>{
-            console.log(err);
-            swal(err.error.mensaje,err.error.errors.message,'error')
+        catchError(err => {
+          console.log(err);
+          swal(err.error.mensaje, err.error.errors.message, 'error')
           return Observable.throw(err.status);
         })
-        );
+      );
   }
 
   cambiarImagen(archivo: File, id: string) {
@@ -163,11 +183,11 @@ export class UsuarioService {
   borrarUsuario(id: string) {
     let url = URL_SERVICIOS + '/usuario/' + id;
     url += '?token=' + this.token;
-    
+
     return this.http.delete(url)
       .pipe(
         map(resp => {
-          swal('Usuario borrado', 'El usuario a sido eliminado correctamente', 'success'); 
+          swal('Usuario borrado', 'El usuario a sido eliminado correctamente', 'success');
           return true;
         }));
   }
