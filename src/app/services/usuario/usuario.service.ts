@@ -34,6 +34,8 @@ export class UsuarioService {
         map((resp: any) => {
           this.token = resp.token;
           localStorage.setItem('token', this.token);
+          console.log('Token Renovado');
+          
 
           return true;
         }),
